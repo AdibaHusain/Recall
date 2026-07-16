@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  letter-spacing: 0.01em;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid theme("colors.pine");
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.bg-mesh {
+  min-height: 100vh;
+  background-color: #f7f2e4;
+  background-image:
+    radial-gradient(ellipse 90% 60% at 20% -10%, rgba(143, 179, 172, 0.85) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 55% at 85% 5%, rgba(163, 191, 172, 0.65) 0%, transparent 60%),
+    linear-gradient(180deg, #9DBFB6 0%, #C7D2AE 35%, #EDE6CC 65%, #FAF4E6 100%);
+  background-attachment: fixed;
+}
+
+/* Flashcard flip mechanics */
+.flip-scene {
+  perspective: 1600px;
+}
+.flip-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.flip-card.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+}
+.flip-face-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card {
+    transition: none;
+  }
+  .animate-stamp {
+    animation: none !important;
+  }
+}
