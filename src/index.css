@@ -30,7 +30,6 @@ body {
   background-attachment: fixed;
 }
 
-/* Flashcard flip mechanics */
 .flip-scene {
   perspective: 1600px;
 }
