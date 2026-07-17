@@ -53,8 +53,7 @@ export default function StudyDeck({ topic, items, onRestart }) {
     [mastery]
   );
 
-  // Granular progress: each card contributes up to MASTERY_TARGET "points"
-  // to the bar, so a single correct answer moves it — not just full mastery.
+  
   const progressRatio = useMemo(() => {
     const points = Object.values(mastery).reduce((sum, m) => sum + Math.min(m.streak, MASTERY_TARGET), 0);
     return points / (items.length * MASTERY_TARGET);

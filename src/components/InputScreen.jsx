@@ -21,7 +21,7 @@ export default function InputScreen({ onSubmit, disabled }) {
           <br />
           not longer.
         </h1>
-        <p className="text-ink-soft text-sm sm:text-base max-w-sm mx-auto leading-relaxed tracking-wide">
+        <p className="text-ink-soft text-xs sm:text-base max-w-sm mx-auto leading-relaxed tracking-widest">
           Paste your notes or name a topic. Recall turns it into cards you actually have to earn your way through.
         </p>
       </div>
@@ -37,7 +37,7 @@ export default function InputScreen({ onSubmit, disabled }) {
           id="topic"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="e.g. Paste your biology notes on cellular respiration, or just type 'the French Revolution'"
+          placeholder="e.g. Paste your programming notes on C++ or python, or just type 'React.js'"
           rows={6}
           className="w-full resize-none rounded-2xl border border-white/70 bg-white/50 px-4 py-3 text-ink tracking-wide placeholder:text-ink-soft/60 focus:border-pine focus:outline-none focus:ring-2 focus:ring-pine/20"
         />
