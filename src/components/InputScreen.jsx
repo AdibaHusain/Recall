@@ -16,13 +16,22 @@ export default function InputScreen({ onSubmit, disabled }) {
         <p className="font-mono text-[11px] tracking-[0.2em] text-pine-dark/70 uppercase mb-3">
           Groq-powered · structured JSON, not chat
         </p>
-        <h1 className="font-display text-5xl sm:text-6xl text-ink mb-4 tracking-wide">
-          Study smarter,
+       <h1 className="font-display text-5xl sm:text-6xl text-ink mb-4 tracking-wide">
+          Study{" "}
+          <span className="italic text-pine decoration-2 underline-offset-4 decoration-pine/60">
+            smarter
+          </span>
+          ,
           <br />
-          not longer.
+          not{" "}
+          <span className="italic text-pine  decoration-2 underline-offset-4 decoration-pine/60">
+            longer
+          </span>
+          .
         </h1>
-        <p className="text-ink-soft text-xs sm:text-base max-w-sm mx-auto leading-relaxed tracking-widest">
-          Paste your notes or name a topic. Recall turns it into cards you actually have to earn your way through.
+        <p className="text-ink-soft text-sm sm:text-base max-w-sm mx-auto leading-relaxed tracking-wide">
+          Paste your notes or name a topic. Recall turns it into cards you actually have to{" "}
+          <span className="font-semibold text-pine-dark">earn your way through</span>.
         </p>
       </div>
 
