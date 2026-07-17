@@ -51,50 +51,22 @@ validated data or typed error
 | Network / provider failure | try/catch around `fetch` in `lib/groq.js` and `api.js` | Error state with retry, no crash |
 | Missing API key | Checked explicitly in `generateStudySet` before calling Groq | Clear setup-error message instead of a generic failure |
 
-## What I used AI for (Claude)
+## AI usage (Claude)
 
-I want to be specific here rather than write one vague sentence, because
-the specifics are the actual evidence of what I understand vs. what I
-leaned on help for.
+- **Scaffolding**: config boilerplate — Vite/Tailwind setup, Google Fonts links.
+- **Backend middleware**: first draft of the Vite dev-server middleware (`devApiPlugin`) — I hadn't built one before, had it explained line by line before using it.
+- **Prompt drafting**: initial Groq system prompt, then iterated manually after real failures (e.g. model wrapping JSON in code fences).
+- **Race-condition fix**: knew the bug existed, didn't know the fix pattern — Claude walked me through `requestIdRef`, I implemented and tested it myself.
+- **Visual direction**: gave a reference screenshot, asked for the same gradient/typography language applied here.
+- **UX iteration**: my first mastery-loop gave no feedback on wrong answers and only moved the progress bar on full mastery — I found this while testing, described the problem, and implemented the fix (granular progress + feedback messages) myself with Claude's input on the approach.
 
-- **Scaffolding**: Claude generated the initial Vite + Tailwind config
-  boilerplate (`tailwind.config.js`, `postcss.config.js`, the Google Fonts
-  setup in `index.html`) — mechanical setup, not core logic.
-- **Backend plumbing**: I hadn't written a Vite dev-server middleware
-  before. Claude drafted the first version of `devApiPlugin` in
-  `vite.config.js`, and I had it explain the middleware API
-  (`server.middlewares.use`, reading the raw request stream) line by line
-  before I used it — I wanted to actually understand how a request reaches
-  that function before shipping it.
-- **Prompt design**: the Groq system prompt in `lib/groq.js` was AI-drafted
-  and then iterated on manually after testing what actually broke in
-  practice — the model initially wrapped JSON in markdown code fences on
-  some runs, which is why `response_format: { type: "json_object" }` and an
-  explicit "no code fences" instruction are both in the final prompt.
-- **Debugging the race condition**: I knew *that* a fast second request
-  could get overwritten by a slow first response landing late, but I hadn't
-  built the fix before. Claude walked me through the `requestIdRef` counter
-  pattern in `useStudySet.js` — I re-implemented and tested it myself
-  rather than pasting it in as-is.
-- **UI direction**: I gave Claude a reference screenshot of a product
-  landing page I liked (mesh gradient background, thin serif display type,
-  pill-shaped buttons) and asked for the same visual language applied to
-  this app. The color tokens, gradient values, and component styling in
-  `tailwind.config.js` / `src/index.css` came out of that back-and-forth.
-- **UX iteration on the mastery loop**: my first version of the mastery
-  logic only moved the progress bar once a card was *fully* mastered, and
-  gave no feedback on a wrong answer — it just silently moved to the next
-  card. I found this confusing once I actually used it, described the
-  problem, and worked through the fix (granular progress based on streak
-  points, and a feedback message with a short delay before advancing) with
-  Claude's help, then implemented it myself.
+## What I built and decided myself
 
-What I designed and built without relying on AI to write the first draft:
-the schema shape in `lib/schema.js`, the retry-on-validation-failure control
-flow in `lib/groq.js`, the mastery-streak state machine in `StudyDeck.jsx`
-(including the requeue-to-back-of-queue behavior), and the failure-mode
-table above. Those are the parts I can walk through and extend live without
-notes, because I made the actual decisions in them, not just the styling.
+- The Zod schema shape and validation rules (`lib/schema.js`)
+- The retry-on-failure control flow (`lib/groq.js`)
+- The mastery-streak state machine — streak tracking, requeue-to-back-of-queue, graduation logic (`StudyDeck.jsx`)
+- The failure-mode table above, and the decision to retry only once rather than indefinitely
+- The mastery-loop concept itself (inspired by spaced-repetition apps like Anki, simplified to a streak counter instead of time-based intervals)
 
 ## Known limitations
 
